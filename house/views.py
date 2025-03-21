@@ -23,11 +23,6 @@ class ContactView(View):
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        # def get_first_words(queryset):
-        #     first_words = [address.split()[0] for address in queryset]
-        #     return first_words
-        
-        # addresses = get_first_words(House.objects.values_list('address', flat=True).distinct())
         district = District.objects.all()
 
 
@@ -36,7 +31,7 @@ class HomeView(View):
             'properties': House.objects.all().order_by('?')[:6],
             'agents': User.objects.filter(user_type=User.Agent).order_by('?')[:3],
             'blogs': Blog.objects.all(),
-            'addresses': district
+            'districts': district
         }
         return render(request, 'index.html', context)
     
