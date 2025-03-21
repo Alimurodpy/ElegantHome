@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Taklif qilingan dizayn</h1>
+
+    <h2>AI tomonidan taklif qilingan dizayn:</h2>
+    {% if image_url %}
+    <img src="{{ image_url }}" alt="AI-generated design" class="img-fluid">
+    {% else %}
+        <p>❌ Rasm yuklanmadi. API javobini tekshiring.</p>
+    {% endif %}
+    <a href="{% url 'house:generate_design' %}">Yangi dizayn yaratish</a>
+
+</div>
+
+{% endblock %}

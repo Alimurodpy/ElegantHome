@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!--/ Carousel Star /-->
+<div class="container">
+<div class="intro intro-carousel">
+  <div id="carousel" class="owl-carousel owl-theme">
+    {% for banner in banners %}          
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url('{{ banner.house.card.url }}')">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <p class="intro-title-top">{{ banner.house.district.name }}
+                      <br> </p>
+                    <h1 class="intro-title mb-4">
+                      <span class="color-b"> {{forloop.counter}} </span> 
+                      {{ banner.house.name }}
+                    </h1>
+                    <p class="intro-subtitle intro-price">
+                    <p class="intro-subtitle intro-price">
+                      <a href="{% url 'house:property_single' slug=banner.house.slug %}"><span class="price-a">{{ banner.house.status }} | $ {{ banner.house.price }}</span></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+<!--/ Carousel end /-->
+
+<!--/ Services Star /-->
+
+<!--/ Services End /-->
+
+<!--/ Property Star /-->
+<section class="section-property section-t8">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrap d-flex justify-content-between">
+          <div class="title-box">
+            <h2 class="title-a">Top Uylar</h2>
+          </div>
+          <div class="title-link">
+            <a href="{% url 'house:property' %}">Barcha Uylar
+              <span class="ion-ios-arrow-forward"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="property-carousel" class="owl-carousel owl-theme">
+      {% for property in properties %}
+      <div class="carousel-item-b">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              {% if property.card %}
+                <img src="{{ property.card.url }}" alt="" class="img-a" height="350" width="470">
+              {% endif %}
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="{% url 'house:property_single' slug=property.slug %}">
+                      {{ property.name }}</a>
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a">{{ property.status }} | $ {{ property.price }}</span>
+                  </div>
+                  <a href="{% url 'house:property_single' slug=property.slug %}" class="link-a">Ko'rish uchun shu yerni bosing
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Maydoni</h4>
+                      <span>{{property.area}}m
+                        <sup>2</sup>
+                      </span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Yotoqxona</h4>
+                      <span>{{property.bed}}</span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Xona</h4>
+                      <span>{{property.bath}}</span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Garaj</h4>
+                      <span>{{property.garage}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!--/ Property End /-->
+
+<!--/ Agents Star /-->
+<section class="section-agents section-t8">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrap d-flex justify-content-between">
+          <div class="title-box">
+            <h2 class="title-a">Eng yaxshi hodimlar</h2>
+          </div>
+          <div class="title-link">
+            <a href="{% url 'house:agents_grid' %}">Barcha Hodimlar
+              <span class="ion-ios-arrow-forward"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% for agent in agents %}
+        <div class="col-md-4">
+          <div class="card-box-d">
+            <div class="card-img-d">
+              {% if agent.photo %}
+                <img src="{{agent.photo.url}}" alt="" height="500" width="350">
+              {% endif %}
+            </div>
+            <div class="card-overlay card-overlay-hover">
+              <div class="card-header-d">
+                <div class="card-title-d align-self-center">
+                  <h3 class="title-d">
+                    <a href="agent-single.html" class="link-two">
+                      {{agent.full_name}}
+                    </a>
+                  </h3>
+                </div>
+              </div>
+              <div class="card-body-d">
+                <p class="content-d color-text-a">
+                  {{agent.desc}}
+                </p>
+                <div class="info-agents color-a">
+                  <p>
+                    <strong>Phone: </strong> {{agent.phone}}</p>
+                  <p>
+                    <strong>Email: </strong> {{agent.email}} </p>
+                </div>
+              </div>
+              <div class="card-footer-d">
+                <div class="socials-footer d-flex justify-content-center">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a href="{{agent.facebook}}" class="link-one">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{{agent.twitter}}" class="link-one">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{{agent.instagram}}" class="link-one">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{{agent.telegram}}" class="link-one">
+                        <i class="fa fa-telegram" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{{agent.dribbble}}" class="link-one">
+                        <i class="fa fa-dribbble" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!--/ Agents End /-->
+
+<!--/ News Star /-->
+<section class="section-news section-t8">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrap d-flex justify-content-between">
+          <div class="title-box">
+            <h2 class="title-a">Top yangiliklar</h2>
+          </div>
+          <div class="title-link">
+            <a href="{% url 'house:blog_grid' %}">Barcha Yangiliklar
+              <span class="ion-ios-arrow-forward"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="new-carousel" class="owl-carousel owl-theme">
+      {% for blog in blogs %}
+        <div class="carousel-item-c">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              {% if blog.card %}
+                <img src="{{blog.card.url}}" alt="" class="img-b img-fluid">
+              {% endif %}
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="{% url 'house:blog_single' slug=blog.slug %}" class="category-b">{{ blog.category }}</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="{% url 'house:blog_single' slug=blog.slug %}">{{ blog.title }}
+                      <br> new </a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">{{ blog.create_at }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!--/ News End /-->
+
+{% endblock content %}

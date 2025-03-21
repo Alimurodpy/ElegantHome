@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">Bizning Ajoyib Uylarimiz</h1>
+            <span class="color-text-a">Uylar katalogi</span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'house:home' %}">Asosiy</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Uylar katalogi
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
+
+  <!--/ Property Grid Star /-->
+  <section class="property-grid grid">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="grid-option">
+            <ul class="custom-dropdown">
+              <li><a href="{% url 'house:property' %}">Barchasi</a>
+                <ul>
+                  <li><a href="{% url 'house:property' %}?status=sotuvda">Sotuvda</a></li>
+                  <li><a href="{% url 'house:property' %}?status=ijara_uchun">Ijara uchun </a></li>
+                  <li><a href="{% url 'house:property' %}?status=sotilgan">Sotilgan</a></li>
+                </ul>
+              </li>
+            </ul> 
+            <br>
+            <br> 
+            <br>
+          </div>
+        </div>
+        {% for property in properties %}  
+          <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+              <div class="img-box-a">
+                {% if property.card %}
+                  <img src="{{property.card.url}}" alt="" class="" height="350" width="430">
+                {% endif %}
+              </div>
+              <div class="card-overlay">
+                <div class="card-overlay-a-content">
+                  <div class="card-header-a">
+                    <h2 class="card-title-a">
+                      <a href="{% url 'house:property_single' slug=property.slug %}">
+                        {{ property.name }}
+                      </a>
+                    </h2>
+                  </div>
+                  <div class="card-body-a">
+                    <div class="price-box d-flex">
+                      <span class="price-a">{{ property.status }} | $ {{ property.price }}</span>
+                    </div>
+                    <a href="{% url 'house:property_single' slug=property.slug %}" class="link-a">Ko'rish uchun shu yerni bosing
+                      <span class="ion-ios-arrow-forward"></span>
+                    </a>
+                  </div>
+                  <div class="card-footer-a">
+                    <ul class="card-info d-flex justify-content-around">
+                      <li>
+                        <h4 class="card-info-title">Maydoni</h4>
+                        <span>{{property.area}}m
+                          <sup>2</sup>
+                        </span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Yotoqxona</h4>
+                        <span>{{property.bed}}</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Xona</h4>
+                        <span>{{property.bath}}</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Garaj</h4>
+                        <span>{{property.garage}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <nav class="pagination-a">
+            <ul class="pagination justify-content-end">
+              
+              {% if properties.has_previous %}
+                <li class="page-item next"><a class="page-link" href="?page={{ properties.previous_page_number }}{% if status %}&status={{ status }}{% endif %}"> <span class="ion-ios-arrow-back"> </span> </a> </li>
+              {% endif %}
+              
+              {% for i in properties.paginator.page_range %}
+                  {% if properties.number == i %}
+                      <li class="page-item active"><a class="page-link" href=""> {{ i }}</a></li>
+                  {% else %}
+                      <li class="page-item"><a class="page-link" href="?page={{ i }}{% if status %}&status={{ status }}{% endif %}">{{ i }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if properties.has_next %}
+                <li class="page-item next"> <a class="page-link" href="?page={{ properties.next_page_number }}{% if status %}&status={{ status }}{% endif %}"> <span class="ion-ios-arrow-forward"></span> </a> </li>
+              {% endif %}
+                
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Property Grid End /-->
+
+{% endblock %}

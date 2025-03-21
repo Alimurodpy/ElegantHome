@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #chat-box { width: 400px; height: 300px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px; }
+        .image-container { margin-bottom: 10px; }
+        .image-container img { width: 100px; height: 100px; }
+    </style>
+</head>
+<body>
+
+    <h2>AI Dizayn Chat</h2>
+    <div id="chat-box">
+        {% for image in images %}
+            <div class="image-container">
+                <p>Yuklangan:</p>
+                <img src="{{ image.image.url }}" alt="Original">
+                {% if image.processed_image %}
+                    <p>AI tavsiya qilgan:</p>
+                    <img src="{{ image.processed_image.url }}" alt="Processed">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <input type="file" id="image-input" accept="image/*" />
+    <button onclick="uploadImage()">Rasm Yuborish</button>
+
+    <script>
+        function uploadImage() {
+            var fileInput = document.getElementById("image-input");
+            var formData = new FormData();
+            formData.append("image", fileInput.files[0]);
+            formData.append("csrfmiddlewaretoken", '{{ csrf_token }}');
+
+            $.ajax({
+                url: "{% url 'house:upload_image' %}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var newImageHtml = `<div class="image-container">
+                        <p>Yuklangan:</p>
+                        <img src="${response.image_url}" alt="Original">
+                    `;
+                    if (response.processed_image_url) {
+                        newImageHtml += `<p>AI tavsiya qilgan:</p>
+                        <img src="${response.processed_image_url}" alt="Processed">`;
+                    }
+                    newImageHtml += `</div>`;
+
+                    $("#chat-box").append(newImageHtml);
+                    $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+                },
+                error: function() {
+                    alert("Xatolik yuz berdi!");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
