@@ -97,16 +97,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 
 # Postgres
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'estateagency',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Alimurod2277',
-#         'HOST': 'localhost',
-#         'PORT': '5432', 
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'estateagency',
+        'USER': 'postgres',
+        'PASSWORD': 'Alimurod2277',
+        'HOST': 'localhost',
+        'PORT': '5432', 
+    }
+}
 
 
 # Password validation
@@ -173,15 +173,3 @@ CKEDITOR_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'users.User'
-
-
-import dj_database_url
-
-DATABASES = {
-    'default': dj_database_url.config(default='postgresql://postgres:iSBjBYJakVytgICvishTHOibdAIhaEBL@postgres.railway.internal:5432/railway') 
-    #postgresql://postgres:iSBjBYJakVytgICvishTHOibdAIhaEBL@postgres.railway.internal:5432/railway
-}
-
-# "C:\Program Files\PostgreSQL\16\bin\pg_restore.exe" -U postgres -d "postgresql://postgres:iSBjBYJakVytgICvishTHOibdAIhaEBL@postgres.railway.internal:5432/railway" -F c backup.sql
-
-# "C:\Program Files\PostgreSQL\16\bin\psql.exe" "postgresql://postgres:iSBjBYJakVytgICvishTHOibdAIhaEBL@postgres.railway.internal:5432/railway" < backup.sql
