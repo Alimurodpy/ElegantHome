@@ -23,15 +23,12 @@ class ContactView(View):
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        district = District.objects.all()
-
 
         context = {
             'banners': BannerHouse.objects.filter(is_active=True),
             'properties': House.objects.all().order_by('?')[:6],
             'agents': User.objects.filter(user_type=User.Agent).order_by('?')[:3],
-            'blogs': Blog.objects.all(),
-            'districts': district
+            'blogs': Blog.objects.all()
         }
         return render(request, 'index.html', context)
     
@@ -151,11 +148,12 @@ class FilterView(View):
         if max_price:
             filters &= Q(price__lte=max_price)
 
-        print(filters)
         properties = House.objects.filter(filters)
         
+
         context = {
-            'properties': properties
+            'properties': properties,
+            'district' : district
         }
         return render(request, 'property-grid.html', context)
     

@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-  <!--/ Intro Single star /-->
+  <!--/ Intro Single star /--> 
   <section class="intro-single">
     <div class="container">
-      <div class="row">
+      <div class="row" >
         <div class="col-md-12 col-lg-8">
-          <div class="title-single-box">
+          <div class="title-single-box" >
             <h1 class="title-single">
               {{ property.name }}
             </h1>
@@ -24,7 +24,7 @@
                 <a href="{% url 'house:property' %}">Properties</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                {{ property.name | slice:":10" }}
+                {{ property.name | slice:":20" }}
                 
               </li>
             </ol>
@@ -37,14 +37,14 @@
 
   <!--/ Property Single Star /-->
   <section class="property-single nav-arrow-b">
-    <div class="container">
+    <div class="container">    
       <div class="row">
         <div class="col-sm-12">
           <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
             {% for i in property.gallery.all %}
               <div class="carousel-item-b">
                 {% if i.photo %}
-                  <img src="{{i.photo.url}}" alt="" height="650">
+                  <img src="{{i.photo.url}}" alt="" height="650" style="order: -1;">
                 {% endif %}
               </div>
             {% endfor %}  

@@ -17,8 +17,8 @@
                     <p class="intro-title-top">{{ banner.house.district.name }}
                       <br> </p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b"> {{forloop.counter}} </span> 
-                      {{ banner.house.name }}
+                      <span class="color-b"> {{ banner.house.name|slice:":1"}} </span> 
+                      {{ banner.house.name|slice:"1:" }}
                     </h1>
                     <p class="intro-subtitle intro-price">
                     <p class="intro-subtitle intro-price">
@@ -145,7 +145,7 @@
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a href="agent-single.html" class="link-two">
+                    <a href="{% url 'house:agent_single' slug=agent.slug %}" class="link-two">
                       {{agent.full_name}}
                     </a>
                   </h3>
@@ -225,7 +225,7 @@
           <div class="card-box-b card-shadow news-box">
             <div class="img-box-b">
               {% if blog.card %}
-                <img src="{{blog.card.url}}" alt="" class="img-b img-fluid">
+                <img src="{{blog.card.url}}" alt="" class="img-b" height="350" width="400">
               {% endif %}
             </div>
             <div class="card-overlay">
@@ -235,8 +235,7 @@
                 </div>
                 <div class="card-title-b">
                   <h2 class="title-2">
-                    <a href="{% url 'house:blog_single' slug=blog.slug %}">{{ blog.title }}
-                      <br> new </a>
+                    <a href="{% url 'house:blog_single' slug=blog.slug %}">{{ blog.title }}</a>
                   </h2>
                 </div>
                 <div class="card-date">

@@ -11,12 +11,19 @@ from house.views import (
     BlogSingleView,
     FilterView
 )
-
-# from chat.views import chat_view, upload_image
-
 from .views import generate_design
+from django.shortcuts import render
+from django.http import Http404
 
 app_name = 'house'
+def my_view(request):
+    raise Http404  
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
+
+handler404 = "apps.your_app.views.custom_404_view"
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
